@@ -40,8 +40,8 @@ def bluer():
                 'category':chunk[i]['foodTypes'],
                 'menu':chunk[i]['statusInfo']['menu'],
                 'tel':chunk[i]['defaultInfo']['phone'],
-                # 'addr':chunk[i]['juso']['jibunAddr'],
-                'addr':chunk[i]['juso']['roadAddrPart1'],
+                'addr':chunk[i]['juso']['jibunAddr'],
+                # 'addr':chunk[i]['juso']['roadAddrPart1'],
                 'lat':chunk[i]['gps']['latitude'],
                 'lng':chunk[i]['gps']['longitude'],
                 'ribbonType':chunk[i]['headerInfo']['ribbonType'],
@@ -54,8 +54,7 @@ def bluer():
     df = pd.DataFrame(datas)
     df.to_csv('./bluer.csv')
     
-    msg2 = "{}/{}개의 맛집 크롤링 완료".format(now.strftime('%Y-%m-%d_%H-%M'), len(df))
-    send_msg(msg2)
+    send_msg({}/{}개의 맛집 크롤링 완료".format(now.strftime('%Y-%m-%d_%H-%M'), len(df)))
     return df
 
 bluer()
