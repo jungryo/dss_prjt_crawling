@@ -12,6 +12,8 @@ The quick way:
 ```
 pip install random
 pip install json
+pip install BeautifulSoup4
+pip install selenium
 pip install requests
 pip install fake_useragent
 pip install urllib
@@ -34,19 +36,18 @@ pip install flask
 2. 전처리 및 DB 저장 : 수집한 데이터 전처리 후 DB에 저장
 3. 이동경로의 위치 수집 : ODsay api 사용하여 이동경로의 위도, 경도 수집   
 4. 프론트페이지 만들기 : flask를 사용하여 맛집데이터를 시각화 할 웹페이지 만들기
-5. 프론트페이지와 DB 연결: DB와 연결하여 주소 검색시 DB에서 위,경도를 select하여 조건에 맞는 맛집 추천
-   \\
+5. 프론트페이지와 DB 연결: DB와 연결하여 주소 검색시 DB에서 위,경도를 select하여 조건에 맞는 맛집 추천   
    
 > ### 1. 데이터 수집
 > * 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
-> * 수집할 때 동을 기준으로 크롤링 
-> * 네이버 : <https://map.naver.com/> json
-> * 블루리본서베이 : <https://www.bluer.co.kr/> beautifulsoup, json
-> * 다이닝코드 : <https://www.diningcode.com/> 
-> * 망고플레이트 : <https://www.mangoplate.com/> json
-> * 메뉴판 : <https://www.menupan.com/> scrapy
+> * 네이버 : <https://map.naver.com/> (json 사용)
+> * 블루리본서베이 : <https://www.bluer.co.kr/> (BeautifulSoup, json 사용)
+> * 다이닝코드 : <https://www.diningcode.com/> (selenium 사용)
+> * 망고플레이트 : <https://www.mangoplate.com/> (json 사용)
+> * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
+
 **************
-* 크롤링 과정
+
 ```
 
 ```
