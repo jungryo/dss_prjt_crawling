@@ -211,6 +211,7 @@ class Route:
 ```
 
 > ### 4. 프론트페이지 만들기
+> * 지도를 보여주기 위해 카카오 API에 나와있는 예시를 활용했다.
 ```
 <!DOCTYPE html>
 <html>
@@ -298,5 +299,47 @@ DB에서 select한 후 별점을 기준으로 5개 정도의 음식점만 추천
 또한, MongoDB와 javascript를 연결하는 어댑터가 필요하다는 것을 늦게 알게 되어 프로젝트 기간내에 해결하지 못했다. 
 
 # 현재까지 진행한 부분
-* 
+* 처음 목표였던 시각화를 위해 파이썬 패키지인 folium 패키지를 활용하기로 하였다.
+```
+map_seoul = folium.Map(location=[37.5530, 126.9726], zoom_start=16)
+
+for i in df_seoul.index:
+     # 행 우선 접근 방식으로 값 추출하기
+    name = df_seoul.loc[i, 'name']
+    addr = df_seoul.loc[i, "addr"]
+    tel = df_seoul.loc[i, "tel"]
+    category = df_seoul.loc[i, "category"]
+    bizhour = df_seoul.loc[i, "bizhour"]
+    rating = df_seoul.loc[i, 'rating']
+    n_rating = df_seoul.loc[i, 'n_rating']
+    b_rating = df_seoul.loc[i, 'b_rating']
+    mg_rating = df_seoul.loc[i, 'mg_rating']
+    d_rating = df_seoul.loc[i, 'd_rating']
+    mn_rating = df_seoul.loc[i, 'mn_rating']
+    lat = df_seoul.loc[i, 'lat']
+    lng = df_seoul.loc[i, 'lng']
+    img = df_seoul.loc[i, "img"]
+    
+    html = '''
+    이름 : {}<br>
+    주소 : {}<br>
+    전화번호 : {}<br>
+    음식종류 : {}<br>
+    영업시간 : {}<br>
+    *****당장 만나야 하는 우리의 별점***** : {}<br>
+    네이버 별점 : {}<br>
+    블루리본 별점 : {}<br>
+    망고플레이트 별점 : {}<br>
+    다이닝코드 별점 : {}<br>
+    메뉴판 별점 : {}<br>
+    <img src="{}" alt="이미지" width="400" />
+    '''.format(name, addr, tel, category, bizhour, n_rating, b_rating, mg_rating, d_rating, mn_rating, rating, img)
+    
+    iframe = folium.IFrame(html, width=500, height=300)
+    popup = folium.Popup(iframe, max_width=500)
+    marker = folium.Marker([lat,lng], popup=popup)
+    marker.add_to(map_seoul)
+    
+map_seoul
+```
         
