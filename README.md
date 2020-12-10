@@ -332,4 +332,4 @@ for i in df_seoul.index:
     
 map_seoul
 ```
-<img src="https://user-images.githubusercontent.com/72811950/101767655-db10b280-3b27-11eb-8890-769a6cc56392.png" width="800" height="400"></img>
+<img src="https://user-images.githubusercontent.com/72811950/101767655-db10b280-3b27-11eb-8890-769a6cc56392.png" width="600" height="400"></img>
