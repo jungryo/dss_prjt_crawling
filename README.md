@@ -85,7 +85,7 @@ class MenupanSpider(scrapy.Spider):
 ```
 
 > ### 2. 전처리 및 DB 저장
-
+>
 > * 전처리 순서 
 > 1. 각 사이트 별로 크롤링한 데이터 중복값 제거
 > 2. 각 사이트 별 데이터 merge 
@@ -131,7 +131,8 @@ df['rating'] = (df.n_rating*.5) + (df.b_rating*.175) + (df.mg_rating*.25) + (df.
 df.rating = df.rating.round(2)
 ```
 > ### 3. 이동경로 위치 수집
->  > 네이버 API와 ODsay API를 이용하여 각 출발지의 위, 경도값과 출발지 두 지점을 잇는 경로에서 약 40m 지점 마다의 위, 경도값 추출
+> * 네이버 API와 ODsay API를 이용하여 각 출발지의 위, 경도값과 출발지 두 지점을 잇는 경로에서 약 40m 지점 마다의 위, 경도값 추출
+*******
 ```
 import requests
 import urllib.parse as urlparse
