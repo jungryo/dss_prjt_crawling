@@ -95,8 +95,8 @@ import urllib.parse as urlparse
 from geopy import distance
 
 class Route:
-    def __init__(self, headers={"X-NCP-APIGW-API-KEY-ID": "czf9niiek1",
-           "X-NCP-APIGW-API-KEY": "3Rf6Inv4bbf0h51YmlDRtDbgUiC2yRjfW7d0vwoO"}):
+    def __init__(self, headers={"X-NCP-APIGW-API-KEY-ID": "",
+           "X-NCP-APIGW-API-KEY": ""}):
         self.headers = headers
     
     # 각 출발지 -> 위경도 변환
