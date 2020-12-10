@@ -46,7 +46,7 @@ pip install flask
 > * 망고플레이트 : <https://www.mangoplate.com/> (json 사용)
 > * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
 ```
-* scrapy를 이용한 
+### scrapy를 이용한 크롤링
 import scrapy
 import re
 from menupan.items import MenupanItem
