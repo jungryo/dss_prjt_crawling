@@ -129,6 +129,12 @@ df.mn_rating = df.mn_rating.round(2)
 # rating 통합
 df['rating'] = (df.n_rating*.5) + (df.b_rating*.175) + (df.mg_rating*.25) + (df.d_rating*.075) + (df.mn_rating*0.01)
 df.rating = df.rating.round(2)
+
+# DB에 저장
+client = pymongo.MongoClient("mongodb://user:pw@IP주소/")
+restaurant = client.crawling.restaurant
+items = df.to_dict("records")
+restaurant.insert(items)
 ```
 > ### 3. 이동경로 위치 수집
 > * 네이버 API와 ODsay API를 이용하여 각 출발지의 위, 경도값과 출발지 두 지점을 잇는 경로에서 약 40m 지점 마다의 위, 경도값 추출
@@ -202,12 +208,6 @@ class Route:
             self.meet_point = self.stop_lat_lng[len(self.stop_lat_lng)//2-3:len(self.stop_lat_lng)//2+3]
         print('거리: {}km'.format(self.distance))
         return self.meet_point, self.stop_lat_lng
-        
-        # DB에 저장
-        client = pymongo.MongoClient("mongodb://user:pw@IP주소/")
-        restaurant = client.crawling.restaurant
-        items = df.to_dict("records")
-        restaurant.insert(items)
 ```
 
 > ### 4. 프론트페이지 만들기
