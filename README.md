@@ -38,8 +38,8 @@ pip install flask
 ![Alt text](https://cdn.discordapp.com/attachments/776743867772960779/786457164444074004/unknown.png)
 
 
-###1. 데이터 수집
->      >* 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
+### 1. 데이터 수집
+>      > * 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
 * 수집할 때 동을 기준으로 크롤링 
 * 네이버 : <https://map.naver.com/> json
 * 블루리본서베이 : <https://www.bluer.co.kr/> beautifulsoup, json
