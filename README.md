@@ -88,12 +88,12 @@ class MenupanSpider(scrapy.Spider):
 **********
 * 전처리 순서 
 1. 각 사이트 별로 크롤링한 데이터 중복값 제거
-2. 5개의 데이터(각 사이트 별 데이터) merge 
+2. 각 사이트 별 데이터 merge 
 3. 음식점 종류에 따라 카테고리화 
 4. 각 사이트별 별점을 5점을 기준으로 환산, null값은 각 사이트의 최소값으로 채움 
 5. 각 사이트의 매출액을 기준으로 별점에 가중치를 두어 자체 별점 생성  
   
-  **별점 전처리 내용**
+  **별점 전처리 및 DB 저장**
 ```
 # 네이버 점수 변환
 df[df.n_rating == 'FALSE'] = np.nan
@@ -200,6 +200,12 @@ class Route:
             self.meet_point = self.stop_lat_lng[len(self.stop_lat_lng)//2-3:len(self.stop_lat_lng)//2+3]
         print('거리: {}km'.format(self.distance))
         return self.meet_point, self.stop_lat_lng
+        
+        # DB에 저장
+        client = pymongo.MongoClient("mongodb://user:pw@IP주소/")
+        restaurant = client.crawling.restaurant
+        items = df.to_dict("records")
+        restaurant.insert(items)
 ```
 
 > ### 4. 프론트페이지 만들기
