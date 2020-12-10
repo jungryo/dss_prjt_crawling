@@ -26,10 +26,10 @@ pip install folium
 pip install pymongo
 pip install flask
 ```
-## 프로젝트 구조도
+# 프로젝트 구조도
 ![Alt text](https://cdn.discordapp.com/attachments/776743867772960779/786457164444074004/unknown.png)
 
-## 필요한 작업 
+# 필요한 작업 
 1. 데이터 수집 : 5개의 웹사이트 맛집 크롤링(위도, 경도는 지도에 마커를 넣기 위해 꼭 필요) 
 2. 전처리 및 DB 저장 : 수집한 데이터 전처리 후 DB에 저장
 3. 이동경로의 위치 수집 : ODsay api 사용하여 이동경로의 위도, 경도 수집   
