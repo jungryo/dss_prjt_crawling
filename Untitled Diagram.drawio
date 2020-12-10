@@ -1,6 +1,6 @@
-<mxfile modified="2020-12-10T04:55:28.550Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="PvEiO1KjKID-VbvoP3yP" version="14.0.0" type="github">
+<mxfile modified="2020-12-10T04:57:51.187Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="wEnxyt8fYZjnOlNmepT6" version="14.0.0" type="github">
   <diagram id="Ht1M8jgEwFfnCIfOTk4-" name="Page-1">
-    <mxGraphModel dx="1518" dy="964" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1290" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -152,7 +152,7 @@
           <mxGeometry x="96" y="517" width="150" height="20" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-82" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://geopy.readthedocs.io/en/stable/_images/logo-wide.png;" vertex="1" parent="1">
-          <mxGeometry x="518" y="415" width="120" height="60" as="geometry" />
+          <mxGeometry x="518" y="412" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=classic;endFill=1;strokeWidth=1;fontSize=14;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
@@ -190,10 +190,10 @@
           <mxGeometry x="683.5" y="527" width="150" height="20" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-158" value="" style="outlineConnect=0;fontColor=#232F3E;gradientColor=#4D72F3;gradientDirection=north;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.professional_services;shadow=0;" vertex="1" parent="1">
-          <mxGeometry x="654" y="578.25" width="37.5" height="37.5" as="geometry" />
+          <mxGeometry x="654" y="579.25" width="37.5" height="37.5" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-159" value="5개 사이트 가중치 고려해&lt;br style=&quot;font-size: 12px;&quot;&gt;산정한 종합 평점" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="684" y="591.5" width="150" height="9" as="geometry" />
+          <mxGeometry x="684" y="592.5" width="150" height="9" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-161" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#6666FF;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_add-128.png;shadow=0;strokeColor=#000000;strokeWidth=1;fillColor=none;gradientColor=#CCFFFF;fontSize=12;fontColor=#6666FF;" vertex="1" parent="1">
           <mxGeometry x="726" y="561.5" width="19.5" height="19.5" as="geometry" />
@@ -208,7 +208,7 @@
           <mxGeometry x="657" y="304.5" width="124.5" height="124.5" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-166" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/multimedia-75/512/multimedia-07-128.png;shadow=0;strokeColor=#000000;strokeWidth=1;fillColor=none;gradientColor=#CCFFFF;fontSize=12;fontColor=#6666FF;" vertex="1" parent="1">
-          <mxGeometry x="688.5" y="364" width="128" height="128" as="geometry" />
+          <mxGeometry x="691.5" y="372" width="116" height="116" as="geometry" />
         </mxCell>
         <mxCell id="_iQ-z8KRnBTiqukgK96n-170" value="" style="endArrow=classic;html=1;strokeWidth=2;fontSize=12;fontColor=#6666FF;dashed=1;dashPattern=1 1;endFill=0;shape=flexArrow;endSize=5;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
