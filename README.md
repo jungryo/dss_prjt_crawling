@@ -54,14 +54,7 @@ from menupan.items import MenupanItem
 
 class MenupanSpider(scrapy.Spider):
     name = "Menupan"
-    custom_settings = {
-        'DOWNLOADER_MIDDLEWARES': {
-            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-            'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
-        }
-    }
     start_urls = ["http://www.menupan.com/restaurant/bestrest/bestrest.asp?page={}&pt=wk".format(i) for i in range(1, 41)]
-    # download_delay = 1
     
     def parse(self, response):
         links = response.xpath('/html/body/div/div[1]/div[1]/div[4]/div[4]/ul/li/p[1]/a/@href').extract()
