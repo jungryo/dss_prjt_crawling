@@ -23,3 +23,11 @@ pip install geopy
 pip install folium
 pip install pymongo
 ```
+## 데이터 수집
+* 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
+* 네이버 : <https://map.naver.com/>
+* 블루리본서베이 : <https://www.bluer.co.kr/>
+* 다이닝코드 : <https://www.diningcode.com/>
+* 망고플레이트 : <https://www.mangoplate.com/>
+* 메뉴판 : <https://www.menupan.com/>
+1. 네이버 
