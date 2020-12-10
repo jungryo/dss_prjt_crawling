@@ -54,7 +54,7 @@ def bluer():
     df = pd.DataFrame(datas)
     df.to_csv('./bluer.csv')
     
-    send_msg({}/{}개의 맛집 크롤링 완료".format(now.strftime('%Y-%m-%d_%H-%M'), len(df)))
+    send_msg("{}/{}개의 맛집 크롤링 완료".format(now.strftime('%Y-%m-%d_%H-%M'), len(df)))
     return df
 
 bluer()
