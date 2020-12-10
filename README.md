@@ -182,7 +182,7 @@ class Route:
     # 출발지간 대중교통 경로
     def trans_path(self, path_type=0):
         self.path_type = path_type
-        self.key = 'you_key'
+        self.key = 'your_key'
         self.url = 'https://api.odsay.com/v1/api/searchPubTransPathT'
         self.params = {'apiKey' : self.key,
                   'SX' : self.d1_x,
