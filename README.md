@@ -95,8 +95,8 @@ import urllib.parse as urlparse
 from geopy import distance
 
 class Route:
-    def __init__(self, headers={"X-NCP-APIGW-API-KEY-ID": "",
-           "X-NCP-APIGW-API-KEY": ""}):
+    def __init__(self, headers={"X-NCP-APIGW-API-KEY-ID": "your_API_KEY_ID",
+           "X-NCP-APIGW-API-KEY": "your_API_KEY"}):
         self.headers = headers
     
     # 각 출발지 -> 위경도 변환
@@ -132,7 +132,7 @@ class Route:
     # 출발지간 대중교통 경로
     def trans_path(self, path_type=0):
         self.path_type = path_type
-        self.key = ''
+        self.key = 'you_key'
         self.url = 'https://api.odsay.com/v1/api/searchPubTransPathT'
         self.params = {'apiKey' : self.key,
                   'SX' : self.d1_x,
