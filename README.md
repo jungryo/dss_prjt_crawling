@@ -26,6 +26,8 @@ pip install folium
 pip install pymongo
 pip install flask
 ```
+## 프로젝트 구조도
+![Alt text](https://cdn.discordapp.com/attachments/776743867772960779/786457164444074004/unknown.png)
 
 ## 필요한 작업 
 1. 데이터 수집 : 5개의 웹사이트 맛집 크롤링(위도, 경도는 지도에 마커를 넣기 위해 꼭 필요) 
@@ -34,12 +36,8 @@ pip install flask
 4. 프론트페이지 만들기 : flask를 사용하여 맛집데이터를 시각화 할 웹페이지 만들기
 5. 프론트페이지와 DB 연결: DB와 연결하여 주소 검색시 DB에서 위,경도를 select하여 조건에 맞는 맛집 추천
 
-## 프로젝트 구조
-![Alt text](https://cdn.discordapp.com/attachments/776743867772960779/786457164444074004/unknown.png)
-
-
 ### 1. 데이터 수집
->      > * 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
+> 네이버, 블루리본서베이, 다이닝코드, 망고플레이트, 메뉴판 총 5개의 웹사이트에서 맛집 크롤링
 * 수집할 때 동을 기준으로 크롤링 
 * 네이버 : <https://map.naver.com/> json
 * 블루리본서베이 : <https://www.bluer.co.kr/> beautifulsoup, json
