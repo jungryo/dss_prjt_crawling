@@ -45,12 +45,78 @@ pip install flask
 > * 다이닝코드 : <https://www.diningcode.com/> (selenium 사용)
 > * 망고플레이트 : <https://www.mangoplate.com/> (json 사용)
 > * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
-> ```example)```
-
-## 전처리
 ```
+* scrapy를 이용한 
+import scrapy
+import re
+from menupan.items import MenupanItem
 
-```
-## 
+class MenupanSpider(scrapy.Spider):
+    name = "Menupan"
+    custom_settings = {
+        'DOWNLOADER_MIDDLEWARES': {
+            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+            'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+        }
+    }
+    start_urls = ["http://www.menupan.com/restaurant/bestrest/bestrest.asp?page={}&pt=wk".format(i) for i in range(1, 41)]
+    # download_delay = 1
+    
+    def parse(self, response):
+        links = response.xpath('/html/body/div/div[1]/div[1]/div[4]/div[4]/ul/li/p[1]/a/@href').extract()
+        links = list(map(response.urljoin, links))
+        for link in links:
+            yield scrapy.Request(link, callback=self.page_parse)
+            
+   
+    
+    def page_parse(self, response):
+        item = MenupanItem()
+        try:
+            bizhour1 = response.xpath('/html/body/center/div[2]/div[2]/div[7]/div[2]/ul[1]/li[1]/dl/dd/text()').extract()[0].replace("\r", "").replace("\n", "").replace("\t", "")
+        except:
+            bizhour1 = response.xpath('/html/body/center/div[2]/div[2]/div[5]/div[2]/ul[1]/li[1]/dl/dd/text()').extract()[0].replace("\r", "").replace("\n", "").replace("\t", "")
+        bizhour2 = response.xpath('/html/body/center/div[2]/div[2]/*[@class="tabInfo"]/*[@class="infoTable"]/*[@class="tableTopA"]/li[3]/dl/*[@class="txt1"]/text()').extract()[0]
+        item["bizhour"] = "운영시간: " + bizhour1 + "  " + "휴일: " + bizhour2
+        item["name"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restName"]/*[@class="name"]/text()').extract()[0].replace("\xa0", "")
+        item["tel"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restTel"]/*[@class="tel1"]/text()').extract()[0].replace("(", "").replace(")", "").replace(" ", "-")
+        item["address"] = response.xpath('/html/body/center/div[2]/div[4]/div[3]/div[2]/dl/dd[1]/ul/li/dl/dd/text()').extract()[0]
+        item["rating"] = response.xpath('/html/body/center/div[2]/div[2]/div[3]/*[@class="restGrade"]/*[@class="rate"]/*[@class="score"]/*[@class="total"]/text()').extract()[0]
+        item["rest_type"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restType"]/*[@class="type"]/text()').extract()[0]
+        item["img"] = "http://www.menupan.com" + response.xpath('//*[@id="rest_bigimg"]/@src').extract()[0]
+        item["link"] = response.url
+        
+        data = response.xpath('/html/body/center/div[2]/div[4]/script[5]/text()').extract()[0]
+        link = "http://menupan.com" + re.findall("/[\w]+/[\w]+/[\w]+\.[\w]+\?[\w]+=[\d]+&[\w]+=[\d]+", data)[0]
+        
+        yield scrapy.Request(link, callback=self.parse2, cb_kwargs={'item': item})
        
+        
+    def parse2(self, response, item):
+        
+        data2 = response.xpath('/html/head/script[3]/text()').extract()[0]
+        lat, lng = re.findall("[\d]+\.[\d]+", data2)
+        item["lat"] = lat
+        item["lng"] = lng
+        yield item
+```
+
+> ### 전처리 및 DB 저장
+```
+
+```
+> ### 이동경로 위치 수집
+```
+
+```
+
+> ### 프론트페이지 만들기
+```
+
+```
+
+> ### DB 연동
+```
+
+```       
         
