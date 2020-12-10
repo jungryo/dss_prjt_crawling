@@ -285,11 +285,11 @@ DB에서 select한 후 별점을 기준으로 5개 정도의 음식점만 추천
 
 # 현재까지 진행된 부분
 * 크론탭을 이요하여 DB베이스에 주기적으로 맛집 데이터를 수집.
-* 웹페이지에 특정 두 지점의 경로를 지도에 표현.  
+* 웹페이지에 특정 두 지점을 지도에 표현.  
 
 ![경로 내 맛집 추천 서비스](https://user-images.githubusercontent.com/72811950/101766454-2a55e380-3b26-11eb-8527-1d6a69795119.png)
 
-* 처음 목표였던 시각화를 위해 파이썬 패키지인 folium 패키지를 활용하기로 하였다.
+* 처음 목표였던 시각화를 위해 파이썬 패키지인 folium 패키지를 활용.
 ```
 map_seoul = folium.Map(location=[37.5530, 126.9726], zoom_start=16)
 
@@ -332,5 +332,4 @@ for i in df_seoul.index:
     
 map_seoul
 ```
-
-        
+<img src="https://user-images.githubusercontent.com/72811950/101767655-db10b280-3b27-11eb-8890-769a6cc56392.png", width="900" height="600"
