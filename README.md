@@ -45,48 +45,7 @@ pip install flask
 > * 다이닝코드 : <https://www.diningcode.com/> (selenium 사용)
 > * 망고플레이트 : <https://www.mangoplate.com/> (json 사용)
 > * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
-> ``` for i in range(0, len(dongs["동"]), 50):
-    for dong in dongs["동"][i:i+50]:
-        # 크롤링 URL 설정
-        url = "https://map.naver.com/v5/api/search?caller=pcweb&query={} 맛집&type=all&searchCoord=126.93536503149417;37.576196000000024&page=1&displayCount=50&isPlaceRecommendationReplace=true&lang=ko".format(dong)
-
-        # 네이버 지도 (URL+동 이름)으로 해당 지역 맛집 데이터 리퀘스트
-        try:
-            response = requests.get(url)
-            print(idx, dong, response)
-            datas = response.json()["result"]["place"]["list"]
-        except:
-            errorlist.append(idx)
-        
-        # 해당 동 데이터 입력
-        columns = ["id", "dong", "name", "tel", "addr", "bizhour", "category", "context", "menu", "reviewcount", "microreview", "thumbnail", "lng", "lat", "rating"]
-        dong_df = pd.DataFrame(columns=columns)
-        
-        try :
-            dong_df["dong"] = dong
-            dong_df["id"] = [data["id"] for data in datas]
-            dong_df["name"] = [data["name"] for data in datas]
-            dong_df["tel"] = [data["tel"] for data in datas]
-            dong_df["addr"] = [data["address"] for data in datas]
-            dong_df["bizhour"] = [data["bizhourInfo"] for data in datas]
-            dong_df["category"] = [data["category"] for data in datas]
-            dong_df["context"] = [data["context"] for data in datas]
-            dong_df["menu"] = [data["menuInfo"] for data in datas]
-            dong_df["reviewcount"] = [data["reviewCount"] for data in datas]
-            dong_df["microreview"] = [data["microReview"] for data in datas]
-            dong_df["thumbnail"] = [data["thumUrl"] for data in datas]
-            dong_df["lng"] = [data["x"] for data in datas]
-            dong_df["lat"] = [data["y"] for data in datas]
-        
-        except:
-            print("none data", idx, dong)
-    
-        idx += 1
-        df = df.append(dong_df)
-        time.sleep(random.randint(15, 20))
-    
-    time.sleep(random.randint(180, 240))
-```
+> ```example)```
 
 ## 전처리
 ```
