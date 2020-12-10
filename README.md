@@ -85,10 +85,46 @@ class MenupanSpider(scrapy.Spider):
 ```
 
 > ### 2. 전처리 및 DB 저장
+>  > 크롤링한 데이터 다음 순서에 따라 전처리
+>  > 각 사이트 별로 크롤링한 데이터 중복값 제거 > 5개의 데이터(각 사이트 별 데이터) merge > 음식점 종류에 따라 카테고리화 > 각 사이트별 별점을 5점을 기준으로 환산, null값은 각 사이트의 최소값으로 채움 > 각 사이트의 매출액을 기준으로 별점에 가중치를 두어 자체 별점 생성
+**별점 전처리 내용**
 ```
+# 네이버 점수 변환
+df[df.n_rating == 'FALSE'] = np.nan
 
+# 블루리본서베이 점수 변환
+df[df.b_rating == 'RIBBON_THREE'] = 5.
+df[df.b_rating == 'RIBBON_TWO'] = 4.5
+df[df.b_rating == 'RIBBON_ONE'] = 4.
+df[df.b_rating == 'ATTENTION'] = 3.5
+df[df.b_rating == 'NEW'] = 3.
+df[df.b_rating == 'NOT'] = 3.
+
+# 다이닝코드 점수 변환
+df.d_rating = df.d_rating.str.replace('점', '')
+df = df.astype({'n_rating':float, 'b_rating':float, 'd_rating':float})
+df.d_rating = df.d_rating / 20.
+
+# rating 결측값 채우기(mean)
+df = df.fillna({'n_rating':df.n_rating.mean(),
+              'b_rating':df.b_rating.mean(),
+              'mg_rating':df.mg_rating.mean(),
+              'd_rating':df.d_rating.mean(),
+              'mn_rating':df.mn_rating.mean()})
+
+# rating 반올림(소수점 둘째자리)
+df.n_rating = df.n_rating.round(2)
+df.b_rating = df.b_rating.round(2)
+df.mg_rating = df.mg_rating.round(2)
+df.d_rating = df.d_rating.round(2)
+df.mn_rating = df.mn_rating.round(2)
+
+# rating 통합
+df['rating'] = (df.n_rating*.5) + (df.b_rating*.175) + (df.mg_rating*.25) + (df.d_rating*.075) + (df.mn_rating*0.01)
+df.rating = df.rating.round(2)
 ```
 > ### 3. 이동경로 위치 수집
+>  > 네이버 API와 ODsay API를 이용하여 각 출발지의 위, 경도값과 출발지 두 지점을 잇는 경로에서 약 40m 지점 마다의 위, 경도값 추출
 ```
 import requests
 import urllib.parse as urlparse
