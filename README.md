@@ -69,8 +69,6 @@ class MenupanSpider(scrapy.Spider):
         for link in links:
             yield scrapy.Request(link, callback=self.page_parse)
             
-   
-    
     def page_parse(self, response):
         item = MenupanItem()
         try:
