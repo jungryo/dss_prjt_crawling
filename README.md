@@ -64,19 +64,12 @@ class MenupanSpider(scrapy.Spider):
             
     def page_parse(self, response):
         item = MenupanItem()
-        try:
-            bizhour1 = response.xpath('/html/body/center/div[2]/div[2]/div[7]/div[2]/ul[1]/li[1]/dl/dd/text()').extract()[0].replace("\r", "").replace("\n", "").replace("\t", "")
-        except:
-            bizhour1 = response.xpath('/html/body/center/div[2]/div[2]/div[5]/div[2]/ul[1]/li[1]/dl/dd/text()').extract()[0].replace("\r", "").replace("\n", "").replace("\t", "")
-        bizhour2 = response.xpath('/html/body/center/div[2]/div[2]/*[@class="tabInfo"]/*[@class="infoTable"]/*[@class="tableTopA"]/li[3]/dl/*[@class="txt1"]/text()').extract()[0]
-        item["bizhour"] = "운영시간: " + bizhour1 + "  " + "휴일: " + bizhour2
         item["name"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restName"]/*[@class="name"]/text()').extract()[0].replace("\xa0", "")
         item["tel"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restTel"]/*[@class="tel1"]/text()').extract()[0].replace("(", "").replace(")", "").replace(" ", "-")
         item["address"] = response.xpath('/html/body/center/div[2]/div[4]/div[3]/div[2]/dl/dd[1]/ul/li/dl/dd/text()').extract()[0]
         item["rating"] = response.xpath('/html/body/center/div[2]/div[2]/div[3]/*[@class="restGrade"]/*[@class="rate"]/*[@class="score"]/*[@class="total"]/text()').extract()[0]
         item["rest_type"] = response.xpath('/html/body/center/div[2]/div[2]/*[@class="areaBasic"]/*[@class="restType"]/*[@class="type"]/text()').extract()[0]
         item["img"] = "http://www.menupan.com" + response.xpath('//*[@id="rest_bigimg"]/@src').extract()[0]
-        item["link"] = response.url
         
         data = response.xpath('/html/body/center/div[2]/div[4]/script[5]/text()').extract()[0]
         link = "http://menupan.com" + re.findall("/[\w]+/[\w]+/[\w]+\.[\w]+\?[\w]+=[\d]+&[\w]+=[\d]+", data)[0]
@@ -85,7 +78,6 @@ class MenupanSpider(scrapy.Spider):
        
         
     def parse2(self, response, item):
-        
         data2 = response.xpath('/html/head/script[3]/text()').extract()[0]
         lat, lng = re.findall("[\d]+\.[\d]+", data2)
         item["lat"] = lat
@@ -93,22 +85,24 @@ class MenupanSpider(scrapy.Spider):
         yield item
 ```
 
-> ### 전처리 및 DB 저장
+> ### 2. 전처리 및 DB 저장
 ```
 
 ```
-> ### 이동경로 위치 수집
-```
-
-```
-
-> ### 프론트페이지 만들기
+> ### 3. 이동경로 위치 수집
 ```
 
 ```
 
-> ### DB 연동
+> ### 4. 프론트페이지 만들기
 ```
 
-```       
+```
+
+> ### 5. DB 연동
+```
+
+```    
+# 한계점
+
         
