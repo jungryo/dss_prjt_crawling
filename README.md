@@ -45,8 +45,7 @@ pip install flask
 > * 다이닝코드 : <https://www.diningcode.com/> (selenium 사용)
 > * 망고플레이트 : <https://www.mangoplate.com/> (json 사용)
 > * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
-> ```
-for i in range(0, len(dongs["동"]), 50):
+> ``` for i in range(0, len(dongs["동"]), 50):
     for dong in dongs["동"][i:i+50]:
         # 크롤링 URL 설정
         url = "https://map.naver.com/v5/api/search?caller=pcweb&query={} 맛집&type=all&searchCoord=126.93536503149417;37.576196000000024&page=1&displayCount=50&isPlaceRecommendationReplace=true&lang=ko".format(dong)
