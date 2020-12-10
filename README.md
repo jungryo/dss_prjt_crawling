@@ -90,7 +90,74 @@ class MenupanSpider(scrapy.Spider):
 ```
 > ### 3. 이동경로 위치 수집
 ```
+import requests
+import urllib.parse as urlparse
+from geopy import distance
 
+class Route:
+    def __init__(self, headers={"X-NCP-APIGW-API-KEY-ID": "czf9niiek1",
+           "X-NCP-APIGW-API-KEY": "3Rf6Inv4bbf0h51YmlDRtDbgUiC2yRjfW7d0vwoO"}):
+        self.headers = headers
+    
+    # 각 출발지 -> 위경도 변환
+    def addr_to_xy(self):
+        # 주소값 입력
+        self.d1_name = input("출발지 1을 입력하세요. : ")
+        self.d2_name = input("출발지 2를 입력하세요. : ")
+        # URL 설정
+        self.d1_url = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={}".format(self.d1_name)
+        self.d2_url = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={}".format(self.d2_name)
+        # 리퀘스트
+        self.response1 = requests.get(self.d1_url, headers=self.headers)
+        self.response2 = requests.get(self.d2_url, headers=self.headers)
+        # JSON 파싱하여 위경도 추출
+        self.d1_x = self.response1.json()["addresses"][0]["x"] 
+        self.d1_y = self.response1.json()["addresses"][0]["y"]
+        self.d2_x = self.response2.json()["addresses"][0]["x"]
+        self.d2_y =  self.response2.json()["addresses"][0]["y"]
+        return self.d1_x, self.d1_y, self.d2_x, self.d2_y
+    
+    # 출발지간 위경도 -> 경로값 변환
+    def road_path(self):
+        self.d1_xy = str(self.d1_x) + "," + str(self.d1_y)
+        self.d2_xy = str(self.d2_x) + "," + str(self.d2_y)
+        self.d_option = "traoptimal"
+        self.d_url = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start={}&goal={}&option={}".format(self.d1_xy, self.d2_xy, self.d_option)
+        self.response = requests.get(self.d_url, headers=self.headers)
+        self.path = self.response.json()["route"]["traoptimal"][0]["path"]
+        self.avg_path = self.response.json()["route"]["traoptimal"][0]["summary"]["distance"] / len(self.path)
+        print("거리 : {}m, ".format(self.response.json()["route"]["traoptimal"][0]["summary"]["distance"]), len(self.path), ", ", self.avg_path)
+        return self.path
+    
+    # 출발지간 대중교통 경로
+    def trans_path(self, path_type=0):
+        self.path_type = path_type
+        self.key = 'lxOFkKZ6BCIrJYAQQbeuYsBW+6br+fKss6pEigRpVqA'
+        self.url = 'https://api.odsay.com/v1/api/searchPubTransPathT'
+        self.params = {'apiKey' : self.key,
+                  'SX' : self.d1_x,
+                  'SY' : self.d1_y,
+                  'EX' : self.d2_x,
+                  'EY' : self.d2_y,
+                  'SearchPathType' : self.path_type,
+                  'OPT':0,
+                 }
+        self.url = self.url + '?' + urlparse.urlencode(self.params)
+        self.response = requests.get(self.url)
+        # 경로내 정류장 위경도 추출
+        self.transit_count = self.response.json()['result']['path'][0]['info']['busTransitCount'] + self.response.json()['result']['path'][0]['info']['subwayTransitCount']
+        self.distance = round(self.response.json()['result']['path'][0]['info']['totalDistance'] / 1000,2)
+        self.stop_lat_lng = []
+        for i in range(1, 2*self.transit_count, 2):
+            self.stop_info = self.response.json()['result']['path'][0]['subPath'][i]['passStopList']['stations']
+            self.stop_lat_lng += [(float(a['y']),float(a['x'])) for a in self.stop_info]
+        # 경로가 1km이하거나, 정류장이 5개 미만이면 모든 위경도 표출하고, 이외에는 중간 6개의 정류장 위경도만 표출
+        if self.distance <= 1 or len(self.stop_lat_lng) <= 5:
+            self.meet_point = self.stop_lat_lng
+        else:
+            self.meet_point = self.stop_lat_lng[len(self.stop_lat_lng)//2-3:len(self.stop_lat_lng)//2+3]
+        print('거리: {}km'.format(self.distance))
+        return self.meet_point, self.stop_lat_lng
 ```
 
 > ### 4. 프론트페이지 만들기
