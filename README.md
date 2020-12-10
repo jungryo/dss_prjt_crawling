@@ -211,13 +211,91 @@ class Route:
 ```
 
 > ### 4. 프론트페이지 만들기
-![Alt text](file:///Users/kimmijeong/Documents/Fast_Campus/best_rest/templates/map.html)
 ```
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>우리 지금 만나, 당장 만나!</title>
+    
+</head>
+<body>
+<div id="map" style="width:100%;height:100vh;"></div>
 
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=your_appkey"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.5657, 126.9769), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+var positions = [
+    {
+        content: '<div>시청역</div>', 
+        latlng: new kakao.maps.LatLng(37.5657, 126.9769)
+    },
+    {
+        content: '<div>덕수궁</div>', 
+        latlng: new kakao.maps.LatLng(37.5658, 126.9751)
+    },
+    {
+        content: '<div>정동길</div>', 
+        latlng: new kakao.maps.LatLng(37.5669, 126.9708)
+    },
+    {
+        content: '<div>경찰박물관</div>',
+        latlng: new kakao.maps.LatLng(37.5690, 126.9697)
+    }
+];
+
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng // 마커의 위치
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+</script>
+
+</body>
+</html>
 ``` 
 # 한계점
 * 처음의 목표는 Flask 패키지를 이용하여 requests를 받고 response를 주는 과정을 통해 사용자들에게 이동경로 내 맛집을 시각화 하여 보여주는 것이었다.  
-웹페이지에서 사용자의 출발지점 2곳을 입력하고 음식 종류를 선택하면 
+웹페이지에서 사용자의 출발지점 2곳을 입력하고 음식 종류를 선택하면 이동경로의 1/3지점과 2/3지점을 기준으로 반경 500m 정도 내에 있는 음식점을 DB에서 select한 후  
+별점을 기준으로 5개 정도의 음식점만 추천해주는 서비스를 제공하고 싶었으나 프론트엔드 부분과 백엔드를 연결하는 부분에서 공부가 미흡했다.  
+우선 가장 구현하고 싶었던 것은 지도상에 음식점의 위치를 표시하는 것이었는데 DB에서 데이터를 가져와 javascript 언어로 웹페이지에 표현하는 부분이 어려웠다.  
+좌표를 일일히 입력하는 것이 아니라 DB에서 선택된 데이터만 마커로 표시하는 함수를 구현하기 어려워고 또한, MongoDB와 javascript를 연결하는 어댑터가 필요하다는 것을  
+늦게 알게 되어 제한된 프로젝트 기간에 맞추지 못하게 되었다. 
 
 # 현재까지 진행한 부분
 * 
