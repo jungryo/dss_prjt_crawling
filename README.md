@@ -9,5 +9,17 @@
 ### Installation
 The quick way:
 ```
-
+pip install json
+pip install requests
+pip install fake_useragent
+pip install urllib
+pip install warnings
+pip install numpy
+pip install pandas
+pip install matplotlib
+pip install seaborn
+pip install missingno
+pip install geopy
+pip install folium
+pip install pymongo
 ```
