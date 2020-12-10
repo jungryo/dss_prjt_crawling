@@ -76,7 +76,6 @@ class MenupanSpider(scrapy.Spider):
         
         yield scrapy.Request(link, callback=self.parse2, cb_kwargs={'item': item})
        
-        
     def parse2(self, response, item):
         data2 = response.xpath('/html/head/script[3]/text()').extract()[0]
         lat, lng = re.findall("[\d]+\.[\d]+", data2)
