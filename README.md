@@ -349,9 +349,7 @@ import libs.roadmatzip as roadmatzip
 import libs.slack as slack
 import time
 
-
 app = Flask(__name__)
-
 naver_id= "your_id"
 naver_secret = "your_secret_key"
 odsay_key = "your_key"
@@ -382,7 +380,6 @@ def bot():
         for i in range(5):
             slack.send_msg(webhook_url, "{}위: {}, {}, {}".format((i+1), msg.iloc[i, 0], msg.iloc[i, 6], msg.iloc[i, 2]))
             time.sleep(1)
-        
     elif by == "대중교통":
         msg = roadmatzip.addr_to_xy(roadmatzip.trans_path, add1, add2, category)
         slack.send_msg(webhook_url, "{}경로 내 {} 맛집 당장만나별점 top5".format(by, category))
@@ -392,7 +389,6 @@ def bot():
             time.sleep(1)
 
     return Response(), 200
-
 app.run(debug = True)
 ```
   
