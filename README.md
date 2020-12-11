@@ -334,7 +334,8 @@ map_seoul
 ```
 <img src="https://user-images.githubusercontent.com/72811950/101767655-db10b280-3b27-11eb-8890-769a6cc56392.png" width="600" height="400"></img>  
 * 정보 전달을 위해 slack프로그램을 이용함.  
-출발지1, 출발지2, 이동수단, 음식종류를 입력하면 전처리 된 데이터에서 별점을 기준으로 1위부터 5위에 있는 음식점을 추천해 주는 챗봇을 만들었다.  
-<img src="https://user-images.githubusercontent.com/72811950/101849962-1d73d700-3b9c-11eb-933f-7e7f0653ffda.png" width="350" height="500"></img>
-<img src="https://user-images.githubusercontent.com/72811950/101849983-2795d580-3b9c-11eb-8275-f2abfc18b554.png" width="400" height="350"></img>
+출발지1, 출발지2, 이동수단, 음식종류를 입력하면 전처리 된 데이터에서 별점을 기준으로 1위부터 5위에 있는 음식점을 추천해 주는 챗봇을 만듦.  
+  
+  <img src="https://user-images.githubusercontent.com/72811950/101849962-1d73d700-3b9c-11eb-933f-7e7f0653ffda.png" width="360" height="500"></img>
+<img src="https://user-images.githubusercontent.com/72811950/101849983-2795d580-3b9c-11eb-8275-f2abfc18b554.png" width="450" height="350"></img>
 
