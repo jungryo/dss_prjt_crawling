@@ -335,6 +335,66 @@ map_seoul
 <img src="https://user-images.githubusercontent.com/72811950/101767655-db10b280-3b27-11eb-8890-769a6cc56392.png" width="600" height="400"></img>  
 * 정보 전달을 위해 slack프로그램을 이용함.  
 출발지1, 출발지2, 이동수단, 음식종류를 입력하면 전처리 된 데이터에서 별점을 기준으로 1위부터 5위에 있는 음식점을 추천해 주는 챗봇을 만듦.  
+**챗봇 메시지 전송 코드**
+```
+import requests, json
+
+def send_msg(webhook_url, mag, channel="#dss", username="맛집찾아봇"):
+    payload = {"channel":channel, "username":username, "text":mag}
+    requests.post(webhook_url, data = json.dumps(payload))
+```
+```
+from flask import *
+import libs.roadmatzip as roadmatzip
+import libs.slack as slack
+import time
+
+
+app = Flask(__name__)
+
+naver_id= "your_id"
+naver_secret = "your_secret_key"
+odsay_key = "your_key"
+webhook_url = 'your_url'
+
+@app.route("/")
+def index():
+    return "server is running!"
+
+@app.route("/bot", methods=["POST"])
+def bot():
+    username = request.form.get("user_name")
+    token = request.form.get("token")
+    text = request.form.get('text')
+    print(username, token, text)
+    text = text.replace("matzip! ", "")
+    if len(text.split("/")) != 4:
+        slack.send_msg(webhook_url, "'주소1/주소2/교통수단/음식카테고리' 형식으로 입력해주세요.")
+        slack.send_msg(webhook_url, "(교통수단:자동차, 대중교통 /음식카테고리:한식, 양식, 디저트, 일식, 바, 중식, 분식, 기타, 동남아식, 뷔페)")
+        return Response(), 200
+    
+    add1, add2, by, category = text.split("/")[0], text.split("/")[1], text.split("/")[2], text.split("/")[3]
+    
+    if by == "자동차":
+        msg = roadmatzip.addr_to_xy(roadmatzip.road_path, add1, add2, category)
+        slack.send_msg(webhook_url, "{}경로 내 {} 맛집 당장만나별점 top5".format(by, category))
+        time.sleep(1)
+        for i in range(5):
+            slack.send_msg(webhook_url, "{}위: {}, {}, {}".format((i+1), msg.iloc[i, 0], msg.iloc[i, 6], msg.iloc[i, 2]))
+            time.sleep(1)
+        
+    elif by == "대중교통":
+        msg = roadmatzip.addr_to_xy(roadmatzip.trans_path, add1, add2, category)
+        slack.send_msg(webhook_url, "{}경로 내 {} 맛집 당장만나별점 top5".format(by, category))
+        time.sleep(1)
+        for i in range(5):
+            slack.send_msg(webhook_url, "{}위: {}, {}, {}".format((i+1), msg.iloc[i, 0], msg.iloc[i, 6], msg.iloc[i, 2]))
+            time.sleep(1)
+
+    return Response(), 200
+
+app.run(debug = True)
+```
   
   <img src="https://user-images.githubusercontent.com/72811950/101849962-1d73d700-3b9c-11eb-933f-7e7f0653ffda.png" width="360" height="500"></img>
 <img src="https://user-images.githubusercontent.com/72811950/101849983-2795d580-3b9c-11eb-8275-f2abfc18b554.png" width="450" height="350"></img>
