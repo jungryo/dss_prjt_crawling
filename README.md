@@ -47,7 +47,7 @@ pip install flask
 > * 메뉴판 : <https://www.menupan.com/> scrapy (scrapy 사용)
 **********
 **scrapy spider.py**
-```
+```python
 import scrapy
 import re
 from menupan.items import MenupanItem
@@ -95,7 +95,7 @@ class MenupanSpider(scrapy.Spider):
 *********
   
   **별점 전처리 및 DB 저장**
-```
+```python
 # 네이버 점수 변환
 df[df.n_rating == 'FALSE'] = np.nan
 
@@ -139,7 +139,7 @@ restaurant.insert(items)
 > ### 3. 이동경로 위치 수집
 > * 네이버 API와 ODsay API를 이용하여 각 출발지의 위, 경도값과 출발지 두 지점을 잇는 경로에서 약 40m 지점 마다의 위, 경도값 추출
 *******
-```
+```python
 import requests
 import urllib.parse as urlparse
 from geopy import distance
@@ -293,7 +293,7 @@ MongoDB와 javascript를 연결하는 어댑터가 필요하다는 것을 늦게
 ![경로 내 맛집 추천 서비스](https://user-images.githubusercontent.com/72811950/101766454-2a55e380-3b26-11eb-8527-1d6a69795119.png)
 
 * 처음 목표였던 시각화를 위해 파이썬 패키지인 folium 패키지를 활용.
-```
+```python
 map_seoul = folium.Map(location=[37.5530, 126.9726], zoom_start=16)
 
 for i in df_seoul.index:
@@ -348,7 +348,7 @@ def send_msg(webhook_url, mag, channel="#dss", username="맛집찾아봇"):
     payload = {"channel":channel, "username":username, "text":mag}
     requests.post(webhook_url, data = json.dumps(payload))
 ```
-```
+```python
 from flask import *
 import libs.roadmatzip as roadmatzip
 import libs.slack as slack
